@@ -1,11 +1,23 @@
 {
-  "name": "starter-lib",
+  "name": "fire-containment",
   "version": "0.0.1",
-  "description": "Starter package for es6-node-rollup-jest-eslint",
+  "description": "Fire containment and initial attack model per Fried and Fried",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cbevins/fire-containment.git"
+  },
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com"
+  },
+  "bugs": {
+    "url": "https://github.com/cbevins/fire-containment/issues"
+  },
+  "homepage": "https://github.com/cbevins/fire-containment#readme",
   "author": "Collin D. Bevins <cbevins@montana.com>",
   "license": "MIT",
   "keywords": [
-    "starter"
+    "fire containment",
+    "initial attack"
   ],
   "main": "./dist/bundle.cjs.js",
   "exports": "./dist/bundle.esm.js",
