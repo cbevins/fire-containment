@@ -1,0 +1,63 @@
+{
+  "name": "starter-lib",
+  "version": "0.0.1",
+  "description": "Starter package for es6-node-rollup-jest-eslint",
+  "author": "Collin D. Bevins <cbevins@montana.com>",
+  "license": "MIT",
+  "keywords": [
+    "starter"
+  ],
+  "main": "./dist/bundle.cjs.js",
+  "exports": "./dist/bundle.esm.js",
+  "module": "./dist/bundle.esm.js",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "package.json"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "prebuild": "rimraf dist",
+    "test": "jest",
+    "test:clear": "jest --clearCache",
+    "test:coverage": "jest --coverage",
+    "test:coveralls": "jest --coverage && coveralls < coverage/lcov.info",
+    "test:watch": "jest --watchAll"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [],
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/index.js",
+      "!**/coverage/**",
+      "!**/dist/**",
+      "!**/node_modules/**",
+      "!**/.eslintrc.js",
+      "!rollup.config.js"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "7.11.6",
+    "@babel/preset-env": "7.11.5",
+    "@rollup/plugin-babel": "5.2.1",
+    "@rollup/plugin-json": "4.1.0",
+    "@rollup/plugin-node-resolve": "9.0.0",
+    "@rollup/pluginutils": "4.0.0",
+    "coveralls": "3.1.0",
+    "eslint": "7.11.0",
+    "eslint-config-standard": "14.1.1",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-jest": "24.1.0",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-promise": "4.2.1",
+    "eslint-plugin-standard": "4.0.1",
+    "jest": "26.5.3",
+    "rimraf": "3.0.2",
+    "rollup": "2.30.0",
+    "rollup-plugin-terser": "7.0.2",
+    "rollup-plugin-uglify": "6.0.4"
+  }
+}
