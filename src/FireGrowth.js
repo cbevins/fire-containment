@@ -9,16 +9,29 @@ export class FirePerimeter {
   constructor (ignitionX, ignitionY, ellipse, nodes = 24, maxSpacing = 1) {
     this.start = { x: ignitionX, y: ignitionY }
     this.ellipse = ellipse
-    this.nodes = nodes
+    this.initialNodes = nodes
     this.spacing = { max: maxSpacing, max2: maxSpacing * maxSpacing }
     this.time = 0
-    // Circular doublely linked list of DllNodes containing FirePoint instances
     this.first = FirePointPool.getFirst(this.start.x, this.start.y, 0)
+    this.reset()
+  }
+
+  reset () {
+    // Circular doublely linked list of DllNodes containing FirePoint instances
     let node = this.first
-    const step = 360 / nodes
+    node.prev = node
+    node.next = node
+    node.data.set(this.start.x, this.start.y, 0) // preserve current this.first instance
+    while (node.next !== this.first) {
+      FirePointPool.remove(node.prev)
+      node = node.next
+    }
+    const step = 360 / this.initialNodes
+    node = this.first
     for (let degrees = step; degrees < 360; degrees += step) {
       node = FirePointPool.insertAfter(node, this.start.x, this.start.y, degrees)
     }
+    this.nodes = this.initialNodes
   }
 
   area () {

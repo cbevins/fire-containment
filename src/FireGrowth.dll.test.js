@@ -52,39 +52,25 @@ test('FirePerimeter.expand()', () => {
   expect(node.data.y).toBeCloseTo(0, 14)
 
   expect(fp.nodes).toEqual(388)
-  // expect(fp.distanceToNext(fp.first)).toBeCloseTo(29.736903897635383, 12)
-
-  // node = fp.first
-  // let str = ''
-  // do {
-  //   str += `${node.data.d.toFixed(4)}, ${node.data.x.toFixed(4)}, ${node.data.y.toFixed(4)}\n`
-  //   node = node.next
-  // } while (node.next !== fp.first.next)
-  // console.log(str)
 })
 
 test('FirePerimeter.perimeter() for various node spacing', () => {
   const ellipse = new Ellipse(1, 0, 2)
   const fp = new FirePerimeter(0, 0, ellipse, 24, 10)
-  for (let t = 1; t <= 100; t += 1) {
-    fp.expand(1, 1)
-  }
+  fp.repeat(1, 100)
 
+  const length = 107.179676972449085
+  expect(perimeterInfiniteSeries(length, length / 2)).toEqual(259.60112551653674)
+  expect(perimeterRamanujan(length, length / 2)).toEqual(259.60046090536736)
+  expect(perimeter(length, length / 2)).toEqual(259.59977233492907)
   // RESULTS:
-  // Spacing  Nodes Perim
+  // Spacing  Nodes perimeter()
   // 0.1       3916 259.5072508149943
   // 0.2       1954 259.47733985839835
   //   1        388 259.11984861882485
   //   2        192 258.7705648435907
   //   5         74 257.8892901431328
   //  10         44 256.86819477493714
-  const length = 107.179676972449085
-  expect(perimeterInfiniteSeries(length, length / 2)).toEqual(259.60112551653674)
-  expect(perimeterRamanujan(length, length / 2)).toEqual(259.60046090536736)
-  expect(perimeter(length, length / 2)).toEqual(259.59977233492907)
-
-  // expect(fp.nodes).toEqual(24)
-  // expect(fp.perimeter()).toEqual(259.60112551653674) // actual is 259.11984861882485
 })
 
 test('FirePerimeter.expand() backwards!!', () => {
@@ -142,4 +128,26 @@ test('FirePerimeter.expand() backwards!!', () => {
   expect(fp.width()).toBeCloseTo(0, 12)
   // expect(fp.perimeter()).toBeCloseTo(4.215470921467128, 14)
   expect(fp.area()).toBeCloseTo(0.02487616285846806, 14)
+})
+
+test('FirePerimeter.reset()', () => {
+  const ellipse = new Ellipse(1, 0, 2)
+  const fp = new FirePerimeter(0, 0, ellipse, 24, 1)
+  const node = fp.first
+
+  expect(node.nodes()).toEqual(24)
+  expect(fp.nodes).toEqual(24)
+  expect(fp.perimeter()).toEqual(0)
+  expect(fp.area()).toEqual(0)
+
+  fp.repeat(1, 100)
+  expect(node.nodes()).toEqual(388)
+  expect(fp.nodes).toEqual(388)
+  expect(fp.perimeter()).toBeCloseTo(259.11984861882485, 14)
+  expect(fp.area()).toBeCloseTo(4494.461188352882, 14)
+
+  fp.reset()
+  expect(fp.nodes).toEqual(24)
+  expect(fp.perimeter()).toEqual(0)
+  expect(fp.area()).toEqual(0)
 })

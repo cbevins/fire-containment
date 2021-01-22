@@ -61,6 +61,10 @@ export class FirePoint {
    * @param {number} d FirePoint's direction of travel, degrees clockwise from North
    */
   constructor (x, y, d) {
+    this.set(x, y, d)
+  }
+
+  set (x, y, d) {
     this.x = x
     this.y = y
     this.d = d
