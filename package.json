@@ -48,6 +48,8 @@
       "!**/dist/**",
       "!**/node_modules/**",
       "!**/.eslintrc.js",
+      "!**/Cpp/**",
+      "!**/util/**",
       "!rollup.config.js"
     ]
   },
